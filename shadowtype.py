@@ -8,7 +8,7 @@ import pyfiglet
 from PIL import Image, ImageDraw, ImageFont
 
 CHAR_WIDTH = 7.25
-LINE_HEIGHT = 16
+LINE_HEIGHT = 14
 PADDING = 20
 PALETTES = {
     "stratos": ["#007cf0", "#7b2ff7", "#ff0080"],
@@ -89,6 +89,20 @@ def rasterize(image: Image.Image, rows: int) -> str:
     return pad_lines(lines)
 
 
+def clean_art(art: str) -> str:
+    """Drop one-cell serifs, then recast the down-left shadow."""
+    lines = art.splitlines()
+    filled = {(y, x) for y, line in enumerate(lines) for x, char in enumerate(line) if char == "█"}
+    filled = {(y, x) for y, x in filled if (y, x - 1) in filled or (y, x + 1) in filled}
+    width = max(map(len, lines))
+    return pad_lines(
+        [
+            "".join("█" if (y, x) in filled else "░" if (y - 1, x + 1) in filled else " " for x in range(width))
+            for y in range(len(lines) + 1)
+        ]
+    )
+
+
 def join_art(left: str, right: str, gap: int) -> str:
     left_lines, right_lines = left.splitlines(), right.splitlines()
     height = max(len(left_lines), len(right_lines))
@@ -147,13 +161,14 @@ def main() -> None:
     parser.add_argument("-o", "--out", type=Path, default=Path("."), help="output directory")
     parser.add_argument("-n", "--name", default="banner", help="output file name without extension")
     parser.add_argument("-c", "--colors", nargs="+", help="one color for solid, two or more for a gradient")
-    parser.add_argument("-p", "--palette", choices=PALETTES, default="stratos", help="preset colors, ignored with -c")
+    parser.add_argument("-p", "--palette", choices=PALETTES, default="fire", help="preset colors, ignored with -c")
     parser.add_argument("-d", "--direction", choices=DIRECTIONS, default="horizontal", help="gradient direction")
     parser.add_argument("-f", "--font", default="dos_rebel", help="figlet font")
     parser.add_argument("-r", "--rows", type=int, help="text height in lines, replaces the figlet font")
     parser.add_argument("-t", "--ttf", type=Path, help="TrueType font file used with --rows")
     parser.add_argument("-g", "--gap", type=int, default=3, help="spaces between the chevron and the text")
     parser.add_argument("-w", "--width", type=int, help="svg width in pixels")
+    parser.add_argument("--serifs", action="store_true", help="keep the one-cell serifs of the figlet font")
     parser.add_argument("--no-chevron", action="store_true", help="remove the leading >")
     args = parser.parse_args()
     if not args.text.strip():
@@ -173,6 +188,8 @@ def main() -> None:
         return render_bitmap(text, args.rows, args.ttf) if args.rows else render_text(text, args.font)
 
     art = render(args.text.upper())
+    if not args.serifs:
+        art = clean_art(art)
     if not args.no_chevron:
         chevron = render_chevron(args.rows) if args.rows else render_text(">", args.font)
         art = join_art(chevron, art, args.gap)

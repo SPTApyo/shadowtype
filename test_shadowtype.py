@@ -1,4 +1,4 @@
-from shadowtype import join_art, render_bitmap, render_svg, render_text
+from shadowtype import clean_art, join_art, render_bitmap, render_svg, render_text
 
 
 def test_render_text_has_shadow_and_equal_lines():
@@ -22,7 +22,7 @@ def test_render_svg_one_tspan_per_line_and_escapes():
 def test_render_svg_width_scales_height():
     art = render_text("A")
     native = render_svg(art, ["#000"])
-    assert 'height="138"' in native
+    assert 'height="122"' in native
     scaled = render_svg(art, ["#000"], display_width=2000)
     assert 'width="2000"' in scaled and "viewBox" in scaled
 
@@ -39,3 +39,7 @@ def test_render_bitmap_rows_control_resolution():
 def test_render_svg_solid_and_direction():
     svg = render_svg(render_text("A"), ["#00ff41"], direction="vertical")
     assert svg.count("<stop") == 1 and 'x2="0%" y2="100%"' in svg
+
+
+def test_clean_art_drops_serifs_and_recasts_shadow():
+    assert clean_art(" ███ █\n") == " ███\n░░░ \n"

@@ -17,12 +17,12 @@
   <a href="https://github.com/SPTApyo/shadowtype/commits/main"><img src="https://img.shields.io/github/last-commit/SPTApyo/shadowtype.svg?style=flat-square&label=Updated&color=7b2ff7&labelColor=333333" /></a>
 </p>
 
-**Shadowtype** turns any text into a shadowed ASCII banner. Every run writes two files: a plain banner.txt for terminals and a banner.svg with a blue, purple and pink gradient, ready to drop at the top of a README. The banner above was made with it.
+**Shadowtype** turns any text into a shadowed ASCII banner. Every run writes two files: a plain banner.txt for terminals and a banner.svg with a color gradient, ready to drop at the top of a README. The banner above was made with it.
 
 ## Features
 
 - **Two outputs at once**: plain text for CLIs, gradient SVG for GitHub pages and docs.
-- **Shadow style**: the dos_rebel figlet font by default, with its signature down-left shadow.
+- **Shadow style**: the dos_rebel figlet font by default, cleaned of its serifs, with its signature down-left shadow.
 - **Real resolution control**: redraw the text on any number of lines, from small and blocky to large and detailed.
 - **Colors**: 18 preset palettes, or your own solid color, two-color or multi-point gradient. See [EXAMPLES.md](EXAMPLES.md).
 - **Scalable SVG**: set the display width, the art stays sharp.
@@ -78,13 +78,14 @@ shadowtype stratos -w 2000
 - -o, --out DIR: output directory (default: current directory).
 - -n, --name NAME: output file name without extension (default: banner).
 - -c, --colors COLOR...: one color for a solid fill, two or more for a gradient. Overrides -p.
-- -p, --palette NAME: preset colors (default: stratos). See [EXAMPLES.md](EXAMPLES.md) for all of them.
+- -p, --palette NAME: preset colors (default: fire). See [EXAMPLES.md](EXAMPLES.md) for all of them.
 - -d, --direction DIR: gradient direction, horizontal, vertical or diagonal (default: horizontal).
 - -f, --font NAME: figlet font (default: dos_rebel, list them with pyfiglet -l).
 - -r, --rows N: text height in lines. The text is redrawn with more or fewer characters and the figlet font is ignored.
 - -t, --ttf FILE: TrueType font used with -r (default: Pillow built-in sans).
 - -g, --gap N: spaces between the chevron and the text (default: 3).
 - -w, --width PX: SVG display width in pixels, height follows.
+- --serifs: keep the small one-cell serifs of the figlet font, removed by default for cleaner letters.
 - --no-chevron: remove the leading >.
 
 Text is always uppercased. Below about 8 rows, the default figlet font looks better than -r.

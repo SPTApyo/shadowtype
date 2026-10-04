@@ -151,29 +151,26 @@ shadowtype shadowtype -p graphite
 ## Solid color
 
 ```bash
-shadowtype shadowtype -c #ff4d00
+shadowtype shadowtype -c "#ff4d00"
 ```
 
 <img src="examples/custom-solid.svg" alt="custom-solid" width="100%" />
 
-
 ## Two-color gradient
 
 ```bash
-shadowtype shadowtype -c #12c2e9 #f64f59
+shadowtype shadowtype -c "#12c2e9" "#f64f59"
 ```
 
 <img src="examples/custom-two.svg" alt="custom-two" width="100%" />
 
-
 ## Multi-point gradient
 
 ```bash
-shadowtype shadowtype -c #12c2e9 #c471ed #f64f59 #ffd200
+shadowtype shadowtype -c "#12c2e9" "#c471ed" "#f64f59" "#ffd200"
 ```
 
 <img src="examples/custom-multi.svg" alt="custom-multi" width="100%" />
-
 
 ## Vertical gradient
 
@@ -182,7 +179,6 @@ shadowtype shadowtype -p sunset -d vertical
 ```
 
 <img src="examples/vertical.svg" alt="vertical" width="100%" />
-
 
 ## Diagonal gradient
 
