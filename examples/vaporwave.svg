@@ -1,9 +1,10 @@
 <svg width="1093" height="138" viewBox="0 0 1093 138" xmlns="http://www.w3.org/2000/svg">
   <defs>
     <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" stop-color="#007cf0" />
-      <stop offset="50%" stop-color="#7b2ff7" />
-      <stop offset="100%" stop-color="#ff0080" />
+      <stop offset="0%" stop-color="#ff71ce" />
+      <stop offset="33%" stop-color="#01cdfe" />
+      <stop offset="66%" stop-color="#05ffa1" />
+      <stop offset="100%" stop-color="#b967ff" />
     </linearGradient>
   </defs>
   <style>

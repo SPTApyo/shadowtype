@@ -1,5 +1,5 @@
 <p align="center">
-  <img src=".github/assets/banner.svg" alt="Shadowtype Banner" width="80%" />
+  <img src=".github/assets/banner.svg" alt="Shadowtype Banner" width="100%" />
 </p>
 
 <p align="center">
@@ -24,7 +24,7 @@
 - **Two outputs at once**: plain text for CLIs, gradient SVG for GitHub pages and docs.
 - **Shadow style**: the dos_rebel figlet font by default, with its signature down-left shadow.
 - **Real resolution control**: redraw the text on any number of lines, from small and blocky to large and detailed.
-- **Custom gradient**: as many colors as you want.
+- **Colors**: 18 preset palettes, or your own solid color, two-color or multi-point gradient. See [EXAMPLES.md](EXAMPLES.md).
 - **Scalable SVG**: set the display width, the art stays sharp.
 
 # Getting Started
@@ -59,8 +59,13 @@ shadowtype stratos
 # Write into a README assets folder
 shadowtype "my project" -o .github/assets
 
-# Custom gradient, no leading chevron
-shadowtype vortex -c "#00c6ff" "#0072ff" --no-chevron
+# Preset palette
+shadowtype vortex -p aurora
+
+# Solid color, two-color or multi-point gradient
+shadowtype vortex -c "#00ff41"
+shadowtype vortex -c "#00c6ff" "#0072ff" -d vertical
+shadowtype vortex -c "#12c2e9" "#c471ed" "#f64f59" --no-chevron
 
 # Higher resolution: redraw the text on 16 lines
 shadowtype stratos -r 16
@@ -72,9 +77,13 @@ shadowtype stratos -w 2000
 ### Options
 - -o, --out DIR: output directory (default: current directory).
 - -n, --name NAME: output file name without extension (default: banner).
-- -c, --colors COLOR...: gradient colors, from left to right.
+- -c, --colors COLOR...: one color for a solid fill, two or more for a gradient. Overrides -p.
+- -p, --palette NAME: preset colors (default: stratos). See [EXAMPLES.md](EXAMPLES.md) for all of them.
+- -d, --direction DIR: gradient direction, horizontal, vertical or diagonal (default: horizontal).
 - -f, --font NAME: figlet font (default: dos_rebel, list them with pyfiglet -l).
 - -r, --rows N: text height in lines. The text is redrawn with more or fewer characters and the figlet font is ignored.
+- -t, --ttf FILE: TrueType font used with -r (default: Pillow built-in sans).
+- -g, --gap N: spaces between the chevron and the text (default: 3).
 - -w, --width PX: SVG display width in pixels, height follows.
 - --no-chevron: remove the leading >.
 
